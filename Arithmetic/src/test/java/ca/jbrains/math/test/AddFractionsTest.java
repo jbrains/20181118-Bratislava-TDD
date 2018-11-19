@@ -7,32 +7,24 @@ public class AddFractionsTest {
     @Test
     public void zeroPlusZero() throws Exception {
         Fraction sum = new Fraction(0).plus(new Fraction(0));
-        Assert.assertEquals(0, sum.getNumerator());
-        Assert.assertEquals(1, sum.getDenominator());
         Assert.assertEquals(new Fraction(0), sum);
     }
 
     @Test
     public void notZeroPlusZero() throws Exception {
         Fraction sum = new Fraction(2).plus(new Fraction(0));
-        Assert.assertEquals(2, sum.getNumerator());
-        Assert.assertEquals(1, sum.getDenominator());
         Assert.assertEquals(new Fraction(2), sum);
     }
 
     @Test
     public void zeroPlusNotZero() throws Exception {
         Fraction sum = new Fraction(0).plus(new Fraction(5));
-        Assert.assertEquals(5, sum.getNumerator());
-        Assert.assertEquals(1, sum.getDenominator());
         Assert.assertEquals(new Fraction(5), sum);
     }
 
     @Test
     public void nonZeroIntegers() throws Exception {
         Fraction sum = new Fraction(4).plus(new Fraction(8));
-        Assert.assertEquals(12, sum.getNumerator());
-        Assert.assertEquals(1, sum.getDenominator());
         Assert.assertEquals(new Fraction(12), sum);
     }
 
@@ -41,8 +33,6 @@ public class AddFractionsTest {
         Fraction sum = new Fraction(3, 5)
                 .plus(new Fraction(4, 5));
 
-        Assert.assertEquals(7, sum.getNumerator());
-        Assert.assertEquals(5, sum.getDenominator());
         Assert.assertEquals(new Fraction(7, 5), sum);
     }
 
@@ -50,9 +40,6 @@ public class AddFractionsTest {
     public void relativelyPrimeDenominators() throws Exception {
         Fraction sum = new Fraction(1, 4)
                 .plus(new Fraction(1, 5));
-
-        Assert.assertEquals(9, sum.getNumerator());
-        Assert.assertEquals(20, sum.getDenominator());
         Assert.assertEquals(new Fraction(9, 20), sum);
     }
 
