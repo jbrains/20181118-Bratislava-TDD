@@ -9,6 +9,7 @@ public class AddFractionsTest {
         Fraction sum = new Fraction(0).plus(new Fraction(0));
         Assert.assertEquals(0, sum.getNumerator());
         Assert.assertEquals(1, sum.getDenominator());
+        Assert.assertEquals(new Fraction(0), sum);
     }
 
     @Test
@@ -16,6 +17,7 @@ public class AddFractionsTest {
         Fraction sum = new Fraction(2).plus(new Fraction(0));
         Assert.assertEquals(2, sum.getNumerator());
         Assert.assertEquals(1, sum.getDenominator());
+        Assert.assertEquals(new Fraction(2), sum);
     }
 
     @Test
@@ -23,6 +25,7 @@ public class AddFractionsTest {
         Fraction sum = new Fraction(0).plus(new Fraction(5));
         Assert.assertEquals(5, sum.getNumerator());
         Assert.assertEquals(1, sum.getDenominator());
+        Assert.assertEquals(new Fraction(5), sum);
     }
 
     @Test
@@ -30,6 +33,7 @@ public class AddFractionsTest {
         Fraction sum = new Fraction(4).plus(new Fraction(8));
         Assert.assertEquals(12, sum.getNumerator());
         Assert.assertEquals(1, sum.getDenominator());
+        Assert.assertEquals(new Fraction(12), sum);
     }
 
     @Test
@@ -39,6 +43,7 @@ public class AddFractionsTest {
 
         Assert.assertEquals(7, sum.getNumerator());
         Assert.assertEquals(5, sum.getDenominator());
+        Assert.assertEquals(new Fraction(7, 5), sum);
     }
 
     @Test
@@ -48,6 +53,7 @@ public class AddFractionsTest {
 
         Assert.assertEquals(9, sum.getNumerator());
         Assert.assertEquals(20, sum.getDenominator());
+        Assert.assertEquals(new Fraction(9, 20), sum);
     }
 
     public static class Fraction {
@@ -80,6 +86,23 @@ public class AddFractionsTest {
 
         public int getDenominator() {
             return denominator;
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            if (other instanceof Fraction) {
+                Fraction that = (Fraction) other;
+                return this.numerator * that.denominator
+                        == this.denominator * that.numerator;
+            }
+            else {
+                return false;
+            }
+        }
+
+        @Override
+        public int hashCode() {
+            return 378;
         }
     }
 }
