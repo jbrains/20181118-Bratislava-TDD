@@ -56,6 +56,13 @@ public class AddFractionsTest {
         Assert.assertEquals(new Fraction(9, 20), sum);
     }
 
+    @Test
+    public void denominatorsWithACommonFactor() throws Exception {
+        Fraction sum = new Fraction(1, 8)
+                .plus(new Fraction(1, 4));
+        Assert.assertEquals(new Fraction(3, 8), sum);
+    }
+
     public static class Fraction {
 
         private final int numerator;
