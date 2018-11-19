@@ -65,15 +65,10 @@ public class AddFractionsTest {
         }
 
         public Fraction plus(Fraction that) {
-            if (this.denominator == that.denominator)
-                return new Fraction(
-                        this.numerator + that.numerator,
-                        this.denominator);
-            else
-                return new Fraction(
-                        this.numerator * that.denominator
-                                + this.denominator * that.numerator,
-                        this.denominator * that.denominator);
+            return new Fraction(
+                    this.numerator * that.denominator
+                            + this.denominator * that.numerator,
+                    this.denominator * that.denominator);
         }
 
         public int getNumerator() {
@@ -90,8 +85,7 @@ public class AddFractionsTest {
                 Fraction that = (Fraction) other;
                 return this.numerator * that.denominator
                         == this.denominator * that.numerator;
-            }
-            else {
+            } else {
                 return false;
             }
         }
