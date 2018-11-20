@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.util.Formatter;
 import java.util.HashMap;
 
 public class SellMultipleItemsTest {
@@ -33,31 +32,11 @@ public class SellMultipleItemsTest {
         Assert.assertEquals("Total: EUR 7.50", display.getText());
     }
 
-    public static class MonetaryAmount {
-        private final int euroCentsValue;
-
-        public MonetaryAmount(int euroCentsValue) {
-            this.euroCentsValue = euroCentsValue;
-        }
-
-        public static MonetaryAmount euroCents(int euroCentsValue) {
-            return new MonetaryAmount(euroCentsValue);
-        }
-
-        private double inEuro() {
-            return euroCentsValue / 100.0d;
-        }
-
-        public String format() {
-            return String.format("EUR %.2f", inEuro());
-        }
-    }
-
     @Test
     public void oneBarcodeScannedButProductNotFound() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(display, new Catalog(new HashMap<String, String>() {{
-            put("12345", "EUR 7.50");
+            put("12345", MonetaryAmount.euroCents(750).format());
         }}));
         sale.onBarcode("::missing barcode::");
 

@@ -10,7 +10,7 @@ public class SellOneItemTest {
     public void productFound() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(display, new Catalog(new HashMap<String, String>() {{
-            put("12345", "EUR 7.65");
+            put("12345", MonetaryAmount.euroCents(765).format());
         }}));
 
         sale.onBarcode("12345");
@@ -22,7 +22,7 @@ public class SellOneItemTest {
     public void anotherProductFound() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(display, new Catalog(new HashMap<String, String>() {{
-            put("23456", "EUR 12.50");
+            put("23456", MonetaryAmount.euroCents(1250).format());
         }}));
 
         sale.onBarcode("23456");
@@ -34,8 +34,8 @@ public class SellOneItemTest {
     public void productNotFound() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(display, new Catalog(new HashMap<String, String>() {{
-            put("12345", "EUR 7.65");
-            put("23456", "EUR 12.50");
+            put("12345", MonetaryAmount.euroCents(765).format());
+            put("23456", MonetaryAmount.euroCents(1250).format());
         }}));
 
         sale.onBarcode("::missing barcode::");
@@ -47,8 +47,8 @@ public class SellOneItemTest {
     public void emptyBarcode() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(display, new Catalog(new HashMap<String, String>() {{
-            put("12345", "EUR 7.65");
-            put("23456", "EUR 12.50");
+            put("12345", MonetaryAmount.euroCents(765).format());
+            put("23456", MonetaryAmount.euroCents(1250).format());
         }}));
 
         sale.onBarcode("");
