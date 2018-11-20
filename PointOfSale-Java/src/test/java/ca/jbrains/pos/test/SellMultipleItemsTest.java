@@ -45,7 +45,7 @@ public class SellMultipleItemsTest {
         }
 
         public String format() {
-            return String.format("EUR %.2f", 750 / 100.0d);
+            return String.format("EUR %.2f", euroCentsValue / 100.0d);
         }
     }
 
