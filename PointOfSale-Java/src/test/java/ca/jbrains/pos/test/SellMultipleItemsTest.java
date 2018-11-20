@@ -1,6 +1,7 @@
 package ca.jbrains.pos.test;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -44,6 +45,7 @@ public class SellMultipleItemsTest {
         Assert.assertEquals("No purchase is in progress. Please scan a product.", display.getText());
     }
 
+    @Ignore("refactoring to be able to do arithmetic with prices")
     @Test
     public void severalBarcodesScannedAndAllProductsFound() throws Exception {
         Display display = new Display();
