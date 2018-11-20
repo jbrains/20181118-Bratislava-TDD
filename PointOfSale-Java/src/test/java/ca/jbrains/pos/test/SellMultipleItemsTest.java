@@ -30,4 +30,17 @@ public class SellMultipleItemsTest {
 
         Assert.assertEquals("Total: EUR 7.50", display.getText());
     }
+
+    @Test
+    public void oneBarcodeScannedButProductNotFound() throws Exception {
+        Display display = new Display();
+        Sale sale = new Sale(display, new Catalog(new HashMap<String, String>() {{
+            put("12345", "EUR 7.50");
+        }}));
+        sale.onBarcode("::missing barcode::");
+
+        sale.onTotal();
+
+        Assert.assertEquals("No purchase is in progress. Please scan a product.", display.getText());
+    }
 }
