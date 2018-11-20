@@ -32,7 +32,8 @@ public class Sale {
     public void onTotal() {
         if (purchasedItems.isEmpty())
             display.displayNoPurchaseIsInProgressMessage();
-        else
-            display.text = String.format("Total: %s", purchasedItems.iterator().next());
+        else {
+            display.displayTotal(purchasedItems.iterator().next());
+        }
     }
 }

@@ -22,4 +22,8 @@ public class Display {
     public void displayNoPurchaseIsInProgressMessage() {
         this.text = "No purchase is in progress. Please scan a product.";
     }
+
+    public void displayTotal(String totalAsText) {
+        text = String.format("Total: %s", totalAsText);
+    }
 }
