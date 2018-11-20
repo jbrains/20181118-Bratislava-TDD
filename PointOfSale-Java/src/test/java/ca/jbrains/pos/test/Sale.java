@@ -33,6 +33,6 @@ public class Sale {
         if (purchasedItems.isEmpty())
             display.displayNoPurchaseIsInProgressMessage();
         else
-            display.text = String.format("Total: %s", "EUR 7.50");
+            display.text = String.format("Total: %s", purchasedItems.iterator().next());
     }
 }
