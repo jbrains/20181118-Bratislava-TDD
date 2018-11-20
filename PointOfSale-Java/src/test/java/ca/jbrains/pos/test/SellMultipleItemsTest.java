@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.Formatter;
 import java.util.HashMap;
 
 public class SellMultipleItemsTest {
@@ -23,13 +24,23 @@ public class SellMultipleItemsTest {
     public void oneBarcodeScannedAndProductFound() throws Exception {
         Display display = new Display();
         Sale sale = new Sale(display, new Catalog(new HashMap<String, String>() {{
-            put("12345", "EUR 7.50");
+            put("12345", MonetaryAmount.euroCents(750).format());
         }}));
         sale.onBarcode("12345");
 
         sale.onTotal();
 
         Assert.assertEquals("Total: EUR 7.50", display.getText());
+    }
+
+    public static class MonetaryAmount {
+        public static MonetaryAmount euroCents(int euroCentsValue) {
+            return new MonetaryAmount();
+        }
+
+        public String format() {
+            return "EUR 7.50";
+        }
     }
 
     @Test
