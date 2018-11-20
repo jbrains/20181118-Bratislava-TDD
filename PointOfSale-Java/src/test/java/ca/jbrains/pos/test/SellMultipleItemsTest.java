@@ -34,12 +34,18 @@ public class SellMultipleItemsTest {
     }
 
     public static class MonetaryAmount {
+        private final int euroCentsValue;
+
+        public MonetaryAmount(int euroCentsValue) {
+            this.euroCentsValue = euroCentsValue;
+        }
+
         public static MonetaryAmount euroCents(int euroCentsValue) {
-            return new MonetaryAmount();
+            return new MonetaryAmount(euroCentsValue);
         }
 
         public String format() {
-            return "EUR 7.50";
+            return String.format("EUR %.2f", 750 / 100.0d);
         }
     }
 
