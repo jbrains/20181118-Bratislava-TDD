@@ -99,6 +99,7 @@ public class StreamStdinAsLinesTest {
         Stream<String> fiveEmptyLinesAsStream = Stream.continually("").take(5);
         Assert.assertEquals(List.of("", "", "", "", ""), fiveEmptyLinesAsStream);
         String fiveEmptyLinesAsText = linesOf(fiveEmptyLinesAsStream);
+        Assert.assertEquals("\n\n\n\n\n", fiveEmptyLinesAsText);
         System.setIn(new ByteArrayInputStream(fiveEmptyLinesAsText.getBytes(StandardCharsets.UTF_8)));
 
         Assert.assertEquals(
