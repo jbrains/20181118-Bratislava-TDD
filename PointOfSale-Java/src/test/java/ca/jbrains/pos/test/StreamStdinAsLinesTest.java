@@ -96,7 +96,9 @@ public class StreamStdinAsLinesTest {
 
     @Test
     public void searchingForAContractError() throws Exception {
-        simulateStdinWithText(linesOf(Stream.continually("").take(5)));
+        Stream<String> fiveEmptyLinesAsStream = Stream.continually("").take(5);
+        String fiveEmptyLinesAsText = linesOf(fiveEmptyLinesAsStream);
+        System.setIn(new ByteArrayInputStream(fiveEmptyLinesAsText.getBytes(StandardCharsets.UTF_8)));
 
         Assert.assertEquals(
                 Stream.continually("").take(4),
