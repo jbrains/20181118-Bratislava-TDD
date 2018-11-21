@@ -46,7 +46,7 @@ public class StreamStdinAsLinesTest {
     }
 
     @Test
-    public void onlyLineSeparator() throws Exception {
+    public void onlyOneLineSeparator() throws Exception {
         simulateStdinWithText(System.lineSeparator());
 
         Assert.assertEquals(
@@ -56,7 +56,7 @@ public class StreamStdinAsLinesTest {
     }
 
     @Test
-    public void singleLineEndingInLineSeparator() throws Exception {
+    public void singleLineEndingInALineSeparator() throws Exception {
         simulateStdinWithText("::the only line::" + System.lineSeparator());
 
         Assert.assertEquals(
@@ -66,7 +66,7 @@ public class StreamStdinAsLinesTest {
     }
 
     @Test
-    public void severalLinesEndingInLineSeparator() throws Exception {
+    public void severalLinesEndingInALineSeparator() throws Exception {
         simulateStdinWithText(new StringBuilder()
                 .append("::line 1::").append(System.lineSeparator())
                 .append("::line 2::").append(System.lineSeparator())
