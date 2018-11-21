@@ -65,6 +65,11 @@ public class StreamStdinAsLinesTest {
         );
     }
 
+    // CONTRACT Turns multiline text into a Stream of lines of text.
+    // CONTRACT Ignores the trailing line separator, EXCEPT the case
+    // where the entire text is only 1 line separator.
+    // CONTRACT A single line separator streams as 1 empty line, instead of 0 lines.
+    // CONTRACT Empty string streams as 0 lines.
     private Stream<String> streamAsLines(InputStream textInput) {
         return Stream.ofAll(new BufferedReader(new InputStreamReader(textInput)).lines());
     }
