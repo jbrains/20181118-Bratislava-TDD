@@ -1,9 +1,11 @@
 package ca.jbrains.pos.test;
 
+import io.vavr.collection.LinearSeq;
 import io.vavr.collection.List;
 import io.vavr.collection.Stream;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -67,16 +69,18 @@ public class StreamStdinAsLinesTest {
 
     @Test
     public void severalLinesEndingInALineSeparator() throws Exception {
-        simulateStdinWithText(new StringBuilder()
-                .append("::line 1::").append(System.lineSeparator())
-                .append("::line 2::").append(System.lineSeparator())
-                .append("::line 3::").append(System.lineSeparator())
-                .toString());
+        simulateStdinWithText(linesOf(List.of("::line 1::", "::line 2::", "::line 3::")));
 
         Assert.assertEquals(
                 List.of("::line 1::", "::line 2::", "::line 3::"),
                 streamAsLines(System.in)
         );
+    }
+
+    private String linesOf(LinearSeq<String> lines) {
+        StringBuilder stringBuilder = new StringBuilder();
+        lines.map(line -> stringBuilder.append(line).append(System.lineSeparator()));
+        return stringBuilder.toString();
     }
 
     // CONTRACT Turns multiline text into a Stream of lines of text.
