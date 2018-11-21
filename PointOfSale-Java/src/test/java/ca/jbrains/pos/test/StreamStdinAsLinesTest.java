@@ -80,7 +80,10 @@ public class StreamStdinAsLinesTest {
 
     private String linesOf(LinearSeq<String> lines) {
         StringBuilder stringBuilder = new StringBuilder();
-        lines.map(line -> stringBuilder.append(line).append(System.lineSeparator()));
+        // Use forEach() in order to actually apply the side-effects as they happen.
+        // map() is lazy, so we would need to collect() to resulting Stream in order to
+        // apply the side-effects.
+        lines.forEach(line -> stringBuilder.append(line).append(System.lineSeparator()));
         return stringBuilder.toString();
     }
 
@@ -97,13 +100,7 @@ public class StreamStdinAsLinesTest {
 
     @Test
     public void searchingForAContractError() throws Exception {
-        StringBuilder stringBuilder = new StringBuilder();
-        // AHA! map() is lazy, so none of the side-effects (appending to stringBuilder) actually happen...
-        Stream<StringBuilder> stringBuilders = Stream.continually("").take(5).map(line -> stringBuilder.append(line).append(System.lineSeparator()));
-        // ...until I invoke a terminal function like collect().
-        stringBuilders.collect(Collectors.toList());
-        String fiveEmptyLinesAsText = stringBuilder.toString();
-        Assert.assertEquals("\n\n\n\n\n", fiveEmptyLinesAsText);
+        Assert.assertEquals("\n\n\n\n\n", linesOf(Stream.continually("").take(5)));
     }
 
     // CONTRACT Turns multiline text into a Stream of lines of text.
