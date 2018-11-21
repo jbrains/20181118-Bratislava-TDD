@@ -96,16 +96,8 @@ public class StreamStdinAsLinesTest {
 
     @Test
     public void searchingForAContractError() throws Exception {
-        Stream<String> fiveEmptyLinesAsStream = Stream.continually("").take(5);
-        Assert.assertEquals(List.of("", "", "", "", ""), fiveEmptyLinesAsStream);
-        String fiveEmptyLinesAsText = linesOf(fiveEmptyLinesAsStream);
+        String fiveEmptyLinesAsText = linesOf(Stream.continually("").take(5));
         Assert.assertEquals("\n\n\n\n\n", fiveEmptyLinesAsText);
-        System.setIn(new ByteArrayInputStream(fiveEmptyLinesAsText.getBytes(StandardCharsets.UTF_8)));
-
-        Assert.assertEquals(
-                Stream.continually("").take(4),
-                streamAsLines(System.in)
-        );
     }
 
     // CONTRACT Turns multiline text into a Stream of lines of text.
