@@ -45,6 +45,16 @@ public class StreamStdinAsLinesTest {
         );
     }
 
+    @Test
+    public void onlyLineSeparator() throws Exception {
+        simulateStdinWithText(System.lineSeparator());
+
+        Assert.assertEquals(
+                List.of(""),
+                streamAsLines(System.in)
+        );
+    }
+
     private Stream<String> streamAsLines(InputStream textInput) {
         return Stream.ofAll(new BufferedReader(new InputStreamReader(textInput)).lines());
     }
