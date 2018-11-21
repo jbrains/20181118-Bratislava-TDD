@@ -83,6 +83,16 @@ public class StreamStdinAsLinesTest {
         return stringBuilder.toString();
     }
 
+    @Test
+    public void severalEmptyLinesEndingInALineSeparator() throws Exception {
+        simulateStdinWithText(linesOf(Stream.continually("").take(5)));
+
+        Assert.assertEquals(
+                Stream.continually("").take(4),
+                streamAsLines(System.in)
+        );
+    }
+
     // CONTRACT Turns multiline text into a Stream of lines of text.
     // CONTRACT Ignores the trailing line separator, EXCEPT the case
     // where the entire text is only 1 line separator.
