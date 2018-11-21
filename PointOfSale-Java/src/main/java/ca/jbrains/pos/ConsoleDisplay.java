@@ -1,22 +1,24 @@
 package ca.jbrains.pos;
 
 public class ConsoleDisplay implements Display {
+    private final RenderTextToConsole renderTextToConsole = new RenderTextToConsole();
+
     @Override
     public void displayPrice(Price price) {
-        render(String.format("EUR %.2f", price.inEuro()));
+        renderTextToConsole.render(String.format("EUR %.2f", price.inEuro()));
     }
 
     private void render(String text) {
-        System.out.println(text);
+        renderTextToConsole.render(text);
     }
 
     @Override
     public void displayProductNotFoundMessage(String barcode) {
-        render(String.format("Product not found: %s", barcode));
+        renderTextToConsole.render(String.format("Product not found: %s", barcode));
     }
 
     @Override
     public void displayScannedEmptyBarcodeMessage() {
-        render(String.format("Scanning error: empty barcode"));
+        renderTextToConsole.render(String.format("Scanning error: empty barcode"));
     }
 }
