@@ -55,6 +55,16 @@ public class StreamStdinAsLinesTest {
         );
     }
 
+    @Test
+    public void singleLineEndingInLineSeparator() throws Exception {
+        simulateStdinWithText("::the only line::" + System.lineSeparator());
+
+        Assert.assertEquals(
+                List.of("::the only line::"),
+                streamAsLines(System.in)
+        );
+    }
+
     private Stream<String> streamAsLines(InputStream textInput) {
         return Stream.ofAll(new BufferedReader(new InputStreamReader(textInput)).lines());
     }
