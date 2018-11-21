@@ -87,20 +87,14 @@ public class StreamStdinAsLinesTest {
         return stringBuilder.toString();
     }
 
-    @Ignore("WIP: Squeezing to find the error")
     @Test
     public void severalEmptyLinesEndingInALineSeparator() throws Exception {
         simulateStdinWithText(linesOf(Stream.continually("").take(5)));
 
         Assert.assertEquals(
-                Stream.continually("").take(4),
+                Stream.continually("").take(5),
                 streamAsLines(System.in)
         );
-    }
-
-    @Test
-    public void searchingForAContractError() throws Exception {
-        Assert.assertEquals("\n\n\n\n\n", linesOf(Stream.continually("").take(5)));
     }
 
     // CONTRACT Turns multiline text into a Stream of lines of text.
