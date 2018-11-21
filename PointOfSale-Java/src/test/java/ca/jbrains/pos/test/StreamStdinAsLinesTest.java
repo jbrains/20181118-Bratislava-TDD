@@ -83,8 +83,19 @@ public class StreamStdinAsLinesTest {
         return stringBuilder.toString();
     }
 
+    @Ignore("WIP: Squeezing to find the error")
     @Test
     public void severalEmptyLinesEndingInALineSeparator() throws Exception {
+        simulateStdinWithText(linesOf(Stream.continually("").take(5)));
+
+        Assert.assertEquals(
+                Stream.continually("").take(4),
+                streamAsLines(System.in)
+        );
+    }
+
+    @Test
+    public void searchingForAContractError() throws Exception {
         simulateStdinWithText(linesOf(Stream.continually("").take(5)));
 
         Assert.assertEquals(
