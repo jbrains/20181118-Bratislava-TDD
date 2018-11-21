@@ -3,9 +3,9 @@ package ca.jbrains.pos.test;
 import io.vavr.collection.LinearSeq;
 import io.vavr.collection.List;
 import io.vavr.collection.Stream;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -13,7 +13,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.stream.Collectors;
 
 public class StreamStdinAsLinesTest {
 
@@ -22,6 +21,11 @@ public class StreamStdinAsLinesTest {
     @Before
     public void setUp() throws Exception {
         productionStdin = System.in;
+    }
+
+    @After
+    public void resetSystemIn() throws Exception {
+        System.setIn(productionStdin);
     }
 
     @Test
@@ -34,15 +38,11 @@ public class StreamStdinAsLinesTest {
         );
     }
 
-    private void simulateStdinWithText(String text) {
-        System.setIn(new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8)));
-    }
-
     @Test
     public void noText() throws Exception {
         simulateStdinWithText("");
 
-        Assert.assertEquals(
+            Assert.assertEquals(
                 List.of(),
                 streamAsLines(System.in)
         );
@@ -78,15 +78,6 @@ public class StreamStdinAsLinesTest {
         );
     }
 
-    private String linesOf(LinearSeq<String> lines) {
-        StringBuilder stringBuilder = new StringBuilder();
-        // Use forEach() in order to actually apply the side-effects as they happen.
-        // map() is lazy, so we would need to collect() to resulting Stream in order to
-        // apply the side-effects.
-        lines.forEach(line -> stringBuilder.append(line).append(System.lineSeparator()));
-        return stringBuilder.toString();
-    }
-
     @Test
     public void severalEmptyLinesEndingInALineSeparator() throws Exception {
         simulateStdinWithText(linesOf(Stream.continually("").take(5)));
@@ -95,6 +86,19 @@ public class StreamStdinAsLinesTest {
                 Stream.continually("").take(5),
                 streamAsLines(System.in)
         );
+    }
+
+    private void simulateStdinWithText(String text) {
+        System.setIn(new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8)));
+    }
+
+    private String linesOf(LinearSeq<String> lines) {
+        StringBuilder stringBuilder = new StringBuilder();
+        // Use forEach() in order to actually apply the side-effects as they happen.
+        // map() is lazy, so we would need to collect() to resulting Stream in order to
+        // apply the side-effects.
+        lines.forEach(line -> stringBuilder.append(line).append(System.lineSeparator()));
+        return stringBuilder.toString();
     }
 
     // CONTRACT Turns multiline text into a Stream of lines of text.
