@@ -1,7 +1,11 @@
 package ca.jbrains.pos;
 
 public class ConsoleDisplay implements Display {
-    private final RenderTextToConsole renderTextToConsole = new RenderTextToConsole();
+    private final RenderTextToConsole renderTextToConsole;
+
+    public ConsoleDisplay() {
+        renderTextToConsole = new RenderTextToConsole();
+    }
 
     @Override
     public void displayPrice(Price price) {
