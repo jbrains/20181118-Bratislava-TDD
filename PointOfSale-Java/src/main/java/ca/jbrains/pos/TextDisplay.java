@@ -1,9 +1,9 @@
 package ca.jbrains.pos;
 
-public class ConsoleDisplay implements Display {
+public class TextDisplay implements Display {
     private final RenderText renderText;
 
-    public ConsoleDisplay(RenderText renderText) {
+    public TextDisplay(RenderText renderText) {
         this.renderText = renderText;
     }
 
