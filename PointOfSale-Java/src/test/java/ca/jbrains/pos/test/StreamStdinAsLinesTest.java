@@ -65,6 +65,20 @@ public class StreamStdinAsLinesTest {
         );
     }
 
+    @Test
+    public void severalLinesEndingInLineSeparator() throws Exception {
+        simulateStdinWithText(new StringBuilder()
+                .append("::line 1::").append(System.lineSeparator())
+                .append("::line 2::").append(System.lineSeparator())
+                .append("::line 3::").append(System.lineSeparator())
+                .toString());
+
+        Assert.assertEquals(
+                List.of("::line 1::", "::line 2::", "::line 3::"),
+                streamAsLines(System.in)
+        );
+    }
+
     // CONTRACT Turns multiline text into a Stream of lines of text.
     // CONTRACT Ignores the trailing line separator, EXCEPT the case
     // where the entire text is only 1 line separator.
