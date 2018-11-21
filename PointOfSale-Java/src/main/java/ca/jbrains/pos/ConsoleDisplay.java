@@ -13,6 +13,6 @@ public class ConsoleDisplay implements Display {
 
     @Override
     public void displayScannedEmptyBarcodeMessage() {
-
+        System.out.println(String.format("Scanning error: empty barcode"));
     }
 }
