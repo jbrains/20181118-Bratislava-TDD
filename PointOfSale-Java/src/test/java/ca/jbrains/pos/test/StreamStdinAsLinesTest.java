@@ -22,11 +22,25 @@ public class StreamStdinAsLinesTest {
     }
 
     @Test
-    public void one() throws Exception {
-        System.setIn(new ByteArrayInputStream("::the only line::".getBytes(StandardCharsets.UTF_8)));
+    public void oneLineEndingInNoLineSeparator() throws Exception {
+        simulateStdinWithText("::the only line::");
 
         Assert.assertEquals(
                 List.of("::the only line::"),
+                streamAsLines(System.in)
+        );
+    }
+
+    private void simulateStdinWithText(String text) {
+        System.setIn(new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8)));
+    }
+
+    @Test
+    public void noText() throws Exception {
+        simulateStdinWithText("");
+
+        Assert.assertEquals(
+                List.of(),
                 streamAsLines(System.in)
         );
     }
