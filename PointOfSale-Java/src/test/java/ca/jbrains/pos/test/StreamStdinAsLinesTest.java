@@ -97,7 +97,7 @@ public class StreamStdinAsLinesTest {
     @Test
     public void searchingForAContractError() throws Exception {
         StringBuilder stringBuilder = new StringBuilder();
-        ((LinearSeq<String>) Stream.continually("").take(5)).map(line -> stringBuilder.append(line).append(System.lineSeparator()));
+        Stream.continually("").take(5).map(line -> stringBuilder.append(line).append(System.lineSeparator()));
         String fiveEmptyLinesAsText = stringBuilder.toString();
         Assert.assertEquals("\n\n\n\n\n", fiveEmptyLinesAsText);
     }
