@@ -8,7 +8,7 @@ public class ConsoleDisplay implements Display {
 
     @Override
     public void displayProductNotFoundMessage(String barcode) {
-
+        System.out.println(String.format("Product not found: %s", barcode));
     }
 
     @Override
