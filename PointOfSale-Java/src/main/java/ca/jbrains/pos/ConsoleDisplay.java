@@ -3,8 +3,8 @@ package ca.jbrains.pos;
 public class ConsoleDisplay implements Display {
     private final RenderTextToConsole renderTextToConsole;
 
-    public ConsoleDisplay() {
-        renderTextToConsole = new RenderTextToConsole();
+    public ConsoleDisplay(RenderTextToConsole renderTextToConsole) {
+        this.renderTextToConsole = renderTextToConsole;
     }
 
     @Override
