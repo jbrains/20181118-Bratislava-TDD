@@ -1,5 +1,6 @@
 package ca.jbrains.pos.test;
 
+import ca.jbrains.pos.CommandLineTextClient;
 import io.vavr.collection.LinearSeq;
 import io.vavr.collection.List;
 import io.vavr.collection.Stream;
@@ -8,14 +9,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 public class StreamStdinAsLinesTest {
 
+    private final CommandLineTextClient commandLineTextClient = new CommandLineTextClient();
     private InputStream productionStdin;
 
     @Before
@@ -34,7 +34,7 @@ public class StreamStdinAsLinesTest {
 
         Assert.assertEquals(
                 List.of("::the only line::"),
-                streamAsLines(System.in)
+                commandLineTextClient.streamAsLines(System.in)
         );
     }
 
@@ -44,7 +44,7 @@ public class StreamStdinAsLinesTest {
 
             Assert.assertEquals(
                 List.of(),
-                streamAsLines(System.in)
+                    commandLineTextClient.streamAsLines(System.in)
         );
     }
 
@@ -54,7 +54,7 @@ public class StreamStdinAsLinesTest {
 
         Assert.assertEquals(
                 List.of(""),
-                streamAsLines(System.in)
+                commandLineTextClient.streamAsLines(System.in)
         );
     }
 
@@ -64,7 +64,7 @@ public class StreamStdinAsLinesTest {
 
         Assert.assertEquals(
                 List.of("::the only line::"),
-                streamAsLines(System.in)
+                commandLineTextClient.streamAsLines(System.in)
         );
     }
 
@@ -74,7 +74,7 @@ public class StreamStdinAsLinesTest {
 
         Assert.assertEquals(
                 List.of("::line 1::", "::line 2::", "::line 3::"),
-                streamAsLines(System.in)
+                commandLineTextClient.streamAsLines(System.in)
         );
     }
 
@@ -84,7 +84,7 @@ public class StreamStdinAsLinesTest {
 
         Assert.assertEquals(
                 Stream.continually("").take(5),
-                streamAsLines(System.in)
+                commandLineTextClient.streamAsLines(System.in)
         );
     }
 
@@ -100,14 +100,5 @@ public class StreamStdinAsLinesTest {
         // apply the side-effects.
         lines.forEach(line -> stringBuilder.append(line).append(System.lineSeparator()));
         return stringBuilder.toString();
-    }
-
-    // CONTRACT Turns multiline text into a Stream of lines of text.
-    // CONTRACT Ignores the trailing line separator, EXCEPT the case
-    // where the entire text is only 1 line separator.
-    // CONTRACT A single line separator streams as 1 empty line, instead of 0 lines.
-    // CONTRACT Empty string streams as 0 lines.
-    private Stream<String> streamAsLines(InputStream textInput) {
-        return Stream.ofAll(new BufferedReader(new InputStreamReader(textInput)).lines());
     }
 }
