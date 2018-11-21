@@ -8,10 +8,6 @@ public class ConsoleDisplay implements Display {
         renderTextToConsole.render(String.format("EUR %.2f", price.inEuro()));
     }
 
-    private void render(String text) {
-        renderTextToConsole.render(text);
-    }
-
     @Override
     public void displayProductNotFoundMessage(String barcode) {
         renderTextToConsole.render(String.format("Product not found: %s", barcode));
