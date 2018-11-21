@@ -13,6 +13,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
 
 public class StreamStdinAsLinesTest {
 
@@ -97,7 +98,10 @@ public class StreamStdinAsLinesTest {
     @Test
     public void searchingForAContractError() throws Exception {
         StringBuilder stringBuilder = new StringBuilder();
-        Stream.continually("").take(5).map(line -> stringBuilder.append(line).append(System.lineSeparator()));
+        // AHA! map() is lazy, so none of the side-effects (appending to stringBuilder) actually happen...
+        Stream<StringBuilder> stringBuilders = Stream.continually("").take(5).map(line -> stringBuilder.append(line).append(System.lineSeparator()));
+        // ...until I invoke a terminal function like collect().
+        stringBuilders.collect(Collectors.toList());
         String fiveEmptyLinesAsText = stringBuilder.toString();
         Assert.assertEquals("\n\n\n\n\n", fiveEmptyLinesAsText);
     }
