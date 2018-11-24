@@ -19,5 +19,4 @@ public class LineBuilder {
     public String toString() {
         return stringBuilder.toString();
     }
-
 }
