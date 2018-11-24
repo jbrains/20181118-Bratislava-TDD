@@ -90,5 +90,4 @@ public class StreamStdinAsLinesTest {
     private void simulateStdinWithText(String text) {
         System.setIn(new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8)));
     }
-
 }
