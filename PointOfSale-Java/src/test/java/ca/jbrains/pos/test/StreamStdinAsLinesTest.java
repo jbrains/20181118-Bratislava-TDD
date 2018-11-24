@@ -1,7 +1,6 @@
 package ca.jbrains.pos.test;
 
 import ca.jbrains.pos.CommandLineTextClient;
-import io.vavr.collection.LinearSeq;
 import io.vavr.collection.List;
 import io.vavr.collection.Stream;
 import org.junit.After;
@@ -70,7 +69,7 @@ public class StreamStdinAsLinesTest {
 
     @Test
     public void severalLinesEndingInALineSeparator() throws Exception {
-        simulateStdinWithText(linesOf(List.of("::line 1::", "::line 2::", "::line 3::")));
+        simulateStdinWithText(LineBuilder.linesOf(List.of("::line 1::", "::line 2::", "::line 3::")));
 
         Assert.assertEquals(
                 List.of("::line 1::", "::line 2::", "::line 3::"),
@@ -80,7 +79,7 @@ public class StreamStdinAsLinesTest {
 
     @Test
     public void severalEmptyLinesEndingInALineSeparator() throws Exception {
-        simulateStdinWithText(linesOf(Stream.continually("").take(5)));
+        simulateStdinWithText(LineBuilder.linesOf(Stream.continually("").take(5)));
 
         Assert.assertEquals(
                 Stream.continually("").take(5),
@@ -92,7 +91,4 @@ public class StreamStdinAsLinesTest {
         System.setIn(new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8)));
     }
 
-    public static String linesOf(LinearSeq<String> lines) {
-        return lines.foldLeft(new LineBuilder(), LineBuilder::appendAsALine).toString();
-    }
 }
