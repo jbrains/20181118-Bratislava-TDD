@@ -93,10 +93,6 @@ public class StreamStdinAsLinesTest {
     }
 
     private String linesOf(LinearSeq<String> lines) {
-        return lines.foldLeft(new StringBuilder(), this::appendAsALine).toString();
-    }
-
-    private StringBuilder appendAsALine(StringBuilder stringBuilder, String line) {
-        return stringBuilder.append(line).append(System.lineSeparator());
+        return lines.foldLeft(new LineBuilder(), LineBuilder::appendAsALine).toString();
     }
 }
