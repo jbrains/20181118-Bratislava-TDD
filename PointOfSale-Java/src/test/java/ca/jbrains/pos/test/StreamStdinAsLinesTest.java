@@ -92,13 +92,11 @@ public class StreamStdinAsLinesTest {
         System.setIn(new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8)));
     }
 
-    // REFACTOR Rewrite this to use foldLeft() with a new StringBuilder as the "zero" and appendLine() as "add".
     private String linesOf(LinearSeq<String> lines) {
-        StringBuilder stringBuilder = new StringBuilder();
-        // Use forEach() in order to actually apply the side-effects as they happen.
-        // map() is lazy, so we would need to collect() to resulting Stream in order to
-        // apply the side-effects.
-        lines.forEach(line -> stringBuilder.append(line).append(System.lineSeparator()));
-        return stringBuilder.toString();
+        return lines.foldLeft(new StringBuilder(), this::appendAsALine).toString();
+    }
+
+    private StringBuilder appendAsALine(StringBuilder stringBuilder, String line) {
+        return stringBuilder.append(line).append(System.lineSeparator());
     }
 }
