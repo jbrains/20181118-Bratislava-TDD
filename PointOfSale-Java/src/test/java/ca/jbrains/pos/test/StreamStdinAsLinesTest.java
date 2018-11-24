@@ -92,7 +92,7 @@ public class StreamStdinAsLinesTest {
         System.setIn(new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8)));
     }
 
-    private String linesOf(LinearSeq<String> lines) {
+    public static String linesOf(LinearSeq<String> lines) {
         return lines.foldLeft(new LineBuilder(), LineBuilder::appendAsALine).toString();
     }
 }
